@@ -1,60 +1,72 @@
 package com.example.ebeanhello.service;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.example.ebeanhello.entity.Car;
 import com.example.ebeanhello.entity.User;
-import io.ebean.EbeanServer;
+import io.ebean.PagedList;
 import io.ebean.annotation.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * 描述
  * @author Ryze
- * @date 2019-08-20 16:32
+ * @date 2019-08-21 10:47
  */
 @Service
 public class UserService {
 
-    @Autowired
-    private EbeanServer ebeanServer;
+    private Integer i = 1;
 
-    private Integer i = 0;
-    private Integer j = 0;
-
-    @Transactional(rollbackFor = Exception.class)
-    public boolean add() {
+    public boolean save() {
         User user = new User();
-        user.setName("user" + i);
-        user.setSex(i / 2 == 0 ? (byte) 0 : (byte) 1);
+        user.setName("名字" + i);
+        user.setSex((byte) 0);
         user.setBirthday(new Timestamp(new java.util.Date().getTime()));
         user.setAge(i);
-        ebeanServer.insert(user);
+        user.save();
         i++;
-        List<Car> cars = new ArrayList<>();
-        Car car = new Car();
-        car.setColour("colour" + j);
-        car.setEngine("engine" + j);
-        car.setSeat(j);
-        cars.add(car);
-        j++;
-        Car car1 = new Car();
-        car1.setColour("colour" + j);
-        car1.setEngine("engine" + j);
-        car1.setSeat(j);
-        j++;
-        cars.add(car1);
-        ebeanServer.insertAll(cars);
         return true;
     }
 
-    public List<User> getAllUsers() {
-        return ebeanServer.find(User.class).findList();
+    @Transactional(rollbackFor = Exception.class)
+    public boolean back() {
+        User user = new User();
+        user.setName("测试回滚");
+        user.setSex((byte) 0);
+        user.setBirthday(new Timestamp(new java.util.Date().getTime()));
+        user.setAge(1);
+        user.save();
+        int i = 1 / 0;
+        User user1 = new User();
+        user1.setName("测试回滚1");
+        user1.setSex((byte) 0);
+        user1.setBirthday(new Timestamp(new java.util.Date().getTime()));
+        user1.setAge(1);
+        user1.save();
+        return true;
     }
-    public List<Car> getAllCars() {
-        return ebeanServer.find(Car.class).findList();
+
+    public List<User> findAll() {
+        return User.find.all();
+    }
+
+
+    public User findById(Integer id) {
+        return User.find.byId(id);
+    }
+
+    public List<User> page() {
+        PagedList<User> pagedList = User.find.query().where().setFirstRow(4).setMaxRows(2).findPagedList();
+        pagedList.loadCount();
+        // fetch and return the list in the foreground thread
+        List<User> orders = pagedList.getList();
+
+        // get the total row count (from the future)
+        int totalRowCount = pagedList.getTotalCount();
+        int pageSize = pagedList.getPageSize();
+        int pageIndex = pagedList.getPageIndex();
+
+        return orders;
     }
 }

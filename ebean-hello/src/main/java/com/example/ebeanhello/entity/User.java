@@ -1,15 +1,24 @@
 package com.example.ebeanhello.entity;
 
-import javax.persistence.*;
+import com.example.ebeanhello.finder.UserFinder;
+import io.ebean.Model;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.sql.Timestamp;
 
 /**
  * 描述
  * @author Ryze
- * @date 2019-08-20 16:26
+ * @date 2019-08-21 10:44
  */
 @Entity
-public class User {
+public class User extends Model {
+    // finder linked as a public static field
+    public static final UserFinder find = new UserFinder();
+
     private Integer id;
     private String name;
     private Byte sex;
@@ -18,7 +27,6 @@ public class User {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue
     public Integer getId() {
         return id;
     }
@@ -92,4 +100,5 @@ public class User {
         result = 31 * result + (age != null ? age.hashCode() : 0);
         return result;
     }
+
 }
