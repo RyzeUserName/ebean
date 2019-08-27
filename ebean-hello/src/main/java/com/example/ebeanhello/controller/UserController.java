@@ -1,12 +1,11 @@
 package com.example.ebeanhello.controller;
 
+import com.example.ebeanhello.entity.Car;
 import com.example.ebeanhello.entity.User;
 import com.example.ebeanhello.service.UserService;
 import io.ebean.PagedList;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -44,5 +43,10 @@ public class UserController {
     @RequestMapping("/page")
     public List<User> page() {
         return userService.page();
+    }
+
+    @GetMapping("/car/{id}")
+    public Car car(@PathVariable Integer id) {
+        return userService.car(id);
     }
 }

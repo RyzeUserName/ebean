@@ -1,0 +1,4 @@
+entity-packages: com.example.ebeanhello
+transactional-packages: com.example.ebeanhello
+querybean-packages: com.example.ebeanhello
+profile-location: true

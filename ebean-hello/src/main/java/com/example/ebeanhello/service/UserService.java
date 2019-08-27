@@ -1,5 +1,6 @@
 package com.example.ebeanhello.service;
 
+import com.example.ebeanhello.entity.Car;
 import com.example.ebeanhello.entity.User;
 import io.ebean.PagedList;
 import io.ebean.annotation.Transactional;
@@ -68,5 +69,9 @@ public class UserService {
         int pageIndex = pagedList.getPageIndex();
 
         return orders;
+    }
+
+    public Car car(Integer id) {
+        return Car.find.byId(id);
     }
 }
