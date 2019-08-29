@@ -2,6 +2,7 @@ package com.example.ebeanhello.controller;
 
 import com.example.ebeanhello.entity.Car;
 import com.example.ebeanhello.entity.User;
+import com.example.ebeanhello.enuml.MyType;
 import com.example.ebeanhello.service.UserService;
 import io.ebean.PagedList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +49,10 @@ public class UserController {
     @GetMapping("/car/{id}")
     public Car car(@PathVariable Integer id) {
         return userService.car(id);
+    }
+
+    @GetMapping("/enumq")
+    public Integer enumQ(@RequestParam MyType type) {
+        return type.getValue();
     }
 }
