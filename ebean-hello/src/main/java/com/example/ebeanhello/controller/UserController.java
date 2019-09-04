@@ -2,6 +2,7 @@ package com.example.ebeanhello.controller;
 
 import com.example.ebeanhello.entity.Car;
 import com.example.ebeanhello.entity.User;
+import com.example.ebeanhello.enuml.MyType;
 import com.example.ebeanhello.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -49,6 +50,7 @@ public class UserController {
     public Car car(@PathVariable Integer id) {
         return userService.car(id);
     }
+
     @GetMapping("/car/update")
     public boolean update() {
          userService.update();
@@ -58,5 +60,10 @@ public class UserController {
     @GetMapping("/findList")
     public Object findList() {
         return userService.findList();
-    }
+
+
+    @GetMapping("/enumq")
+    public Integer enumQ(@RequestParam MyType type) {
+        return type.getValue();
+
 }
