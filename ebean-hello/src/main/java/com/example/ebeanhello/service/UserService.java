@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 描述
@@ -73,5 +74,18 @@ public class UserService {
 
     public Car car(Integer id) {
         return Car.find.byId(id);
+    }
+
+    public void update() {
+        Car car = new Car();
+        car.setColour("red");
+        car.setEngine("fff");
+        car.setSeat(0);
+        Car.find.where().colour.eq("red").asUpdate().set("seat", "99").update();
+    }
+
+    public Object findList() {
+        List<User> list = User.find.where().select("count,name").findList();
+        return list;
     }
 }

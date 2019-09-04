@@ -3,11 +3,11 @@ package com.example.ebeanhello.controller;
 import com.example.ebeanhello.entity.Car;
 import com.example.ebeanhello.entity.User;
 import com.example.ebeanhello.service.UserService;
-import io.ebean.PagedList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 描述
@@ -48,5 +48,15 @@ public class UserController {
     @GetMapping("/car/{id}")
     public Car car(@PathVariable Integer id) {
         return userService.car(id);
+    }
+    @GetMapping("/car/update")
+    public boolean update() {
+         userService.update();
+        return true;
+    }
+
+    @GetMapping("/findList")
+    public Object findList() {
+        return userService.findList();
     }
 }

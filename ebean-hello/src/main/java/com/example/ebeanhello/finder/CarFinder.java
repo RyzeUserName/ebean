@@ -2,6 +2,7 @@ package com.example.ebeanhello.finder;
 
 import com.example.ebeanhello.entity.Car;
 import com.example.ebeanhello.entity.User;
+import com.example.ebeanhello.entity.query.QCar;
 import io.ebean.Finder;
 
 /**
@@ -12,5 +13,9 @@ import io.ebean.Finder;
 public class CarFinder extends Finder<Integer, Car> {
     public CarFinder() {
         super(Car.class);
+    }
+
+    public QCar where() {
+        return new QCar(db());
     }
 }

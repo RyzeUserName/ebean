@@ -25,8 +25,4 @@ public class Car extends Model {
     private String colour;
     private String engine;
     private Integer seat;
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
 }

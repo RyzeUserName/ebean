@@ -1,6 +1,7 @@
 package com.example.ebeanhello.finder;
 
 import com.example.ebeanhello.entity.User;
+import com.example.ebeanhello.entity.query.QUser;
 import io.ebean.Finder;
 
 /**
@@ -11,5 +12,8 @@ import io.ebean.Finder;
 public class UserFinder extends Finder<Integer, User> {
     public UserFinder() {
         super(User.class);
+    }
+    public QUser where() {
+        return new QUser(db());
     }
 }
